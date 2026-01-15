@@ -322,10 +322,10 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 📧 Contact
 
-**Your Name** - [@your_twitter](https://twitter.com/your_twitter) - your.email@example.com
+**Rayyan Atif** - rayyan.atif@mail.utoronto.ca - rayyan.atif95@gmail.com
 
-Project Link: [https://github.com/YOUR_USERNAME/SpendSenseV2](https://github.com/YOUR_USERNAME/SpendSenseV2)
+Project Link: [https://github.com/rayy-06/SpendSense](https://github.com/rayy-06/SpendSense)
 
 ---
 
-**Built with ❤️ as a learning project to explore full-stack development, AI integration, and data science.**
+**Built as a learning project to explore full-stack development, AI integration, and data science.**
