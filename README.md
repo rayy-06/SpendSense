@@ -162,12 +162,8 @@ SpendSenseV2/
 │   │   ├── queryCache.ts    # LRU cache
 │   │   └── auth.ts          # JWT helpers
 │   └── middleware.ts        # Auth middleware
-├── prisma/
-│   └── schema.prisma        # Database schema
-└── information/             # Documentation
-    ├── COMPLETE_LEARNING_GUIDE.md
-    ├── PROJECT_STRUCTURE.md
-    └── RESUME_GUIDE.md
+└── prisma/
+    └── schema.prisma        # Database schema
 ```
 
 ---
@@ -293,17 +289,6 @@ Vercel automatically:
 - [Neon](https://neon.tech) - Free PostgreSQL with generous limits
 - [Supabase](https://supabase.com) - Free PostgreSQL + bonus features
 - [Railway](https://railway.app) - Simple PostgreSQL hosting
-
----
-
-## 📚 Documentation
-
-Full documentation available in the `information/` folder:
-
-- **[COMPLETE_LEARNING_GUIDE.md](information/COMPLETE_LEARNING_GUIDE.md)** - A-Z technical breakdown
-- **[PROJECT_STRUCTURE.md](information/PROJECT_STRUCTURE.md)** - File hierarchy and patterns
-- **[RESUME_GUIDE.md](information/RESUME_GUIDE.md)** - How to present this project to recruiters
-- **[CACHING_SYSTEM.md](information/CACHING_SYSTEM.md)** - Cache architecture details
 
 ---
 
