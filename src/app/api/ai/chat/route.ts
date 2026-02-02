@@ -42,7 +42,7 @@ Be encouraging about good financial habits and constructive about areas for impr
         // Extract final text content
         for (const block of response.content) {
           if (block.type === 'text') {
-            finalResponse = block.text;
+            finalResponse += block.text;
           }
         }
         break;
