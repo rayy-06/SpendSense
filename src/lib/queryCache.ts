@@ -16,6 +16,9 @@ interface CacheStats {
   misses: number;
   size: number;
   hitRate: number;
+  avgHitLatency: number;
+  avgMissLatency: number;
+  latencyReduction: number;
 }
 
 export class QueryCache {
@@ -23,12 +26,18 @@ export class QueryCache {
   private maxSize: number;
   private ttlMs: number;
   private stats: { hits: number; misses: number };
+  private hitLatencies: number[];
+  private missLatencies: number[];
+  private maxLatencyRecords: number;
 
   constructor(maxSize: number = 100, ttlMs: number = 60000) {
     this.cache = new Map();
     this.maxSize = maxSize;
     this.ttlMs = ttlMs; // Default 60 seconds
     this.stats = { hits: 0, misses: 0 };
+    this.hitLatencies = [];
+    this.missLatencies = [];
+    this.maxLatencyRecords = 1000; // Keep last 1000 measurements
   }
 
   /**
@@ -138,6 +147,25 @@ export class QueryCache {
   clear(): void {
     this.cache.clear();
     this.stats = { hits: 0, misses: 0 };
+    this.hitLatencies = [];
+    this.missLatencies = [];
+  }
+
+  /**
+   * Record latency measurement for cache hit or miss
+   */
+  recordLatency(isHit: boolean, latencyMs: number): void {
+    if (isHit) {
+      this.hitLatencies.push(latencyMs);
+      if (this.hitLatencies.length > this.maxLatencyRecords) {
+        this.hitLatencies.shift(); // Remove oldest
+      }
+    } else {
+      this.missLatencies.push(latencyMs);
+      if (this.missLatencies.length > this.maxLatencyRecords) {
+        this.missLatencies.shift(); // Remove oldest
+      }
+    }
   }
 
   /**
@@ -145,11 +173,29 @@ export class QueryCache {
    */
   getStats(): CacheStats {
     const total = this.stats.hits + this.stats.misses;
+
+    // Calculate average latencies
+    const avgHitLatency = this.hitLatencies.length > 0
+      ? this.hitLatencies.reduce((sum, lat) => sum + lat, 0) / this.hitLatencies.length
+      : 0;
+
+    const avgMissLatency = this.missLatencies.length > 0
+      ? this.missLatencies.reduce((sum, lat) => sum + lat, 0) / this.missLatencies.length
+      : 0;
+
+    // Calculate latency reduction percentage
+    const latencyReduction = avgMissLatency > 0
+      ? ((avgMissLatency - avgHitLatency) / avgMissLatency) * 100
+      : 0;
+
     return {
       hits: this.stats.hits,
       misses: this.stats.misses,
       size: this.cache.size,
       hitRate: total > 0 ? (this.stats.hits / total) * 100 : 0,
+      avgHitLatency: Math.round(avgHitLatency * 100) / 100, // Round to 2 decimals
+      avgMissLatency: Math.round(avgMissLatency * 100) / 100,
+      latencyReduction: Math.round(latencyReduction * 100) / 100,
     };
   }
 }

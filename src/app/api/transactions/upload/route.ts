@@ -39,13 +39,13 @@ export async function POST(request: NextRequest) {
 
       messageContent = [
         {
-          type: 'document',
+          type: 'document' as const,
           source: {
             type: 'base64',
             media_type: 'application/pdf',
             data: base64,
           },
-        },
+        } as any,
         {
           type: 'text',
           text: `You are a financial transaction parser. Parse this PDF bank statement and extract all transactions.

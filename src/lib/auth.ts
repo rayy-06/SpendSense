@@ -9,6 +9,7 @@ const JWT_SECRET = new TextEncoder().encode(
 export interface JWTPayload {
   userId: string;
   email: string;
+  [key: string]: unknown;
 }
 
 export async function signToken(payload: JWTPayload): Promise<string> {
@@ -22,7 +23,10 @@ export async function signToken(payload: JWTPayload): Promise<string> {
 export async function verifyToken(token: string): Promise<JWTPayload | null> {
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
-    return payload as JWTPayload;
+    return {
+      userId: payload.userId as string,
+      email: payload.email as string,
+    };
   } catch (error) {
     console.error('JWT verification failed:', error);
     return null;

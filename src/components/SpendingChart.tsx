@@ -26,7 +26,7 @@ export function SpendingChart({ data }: SpendingChartProps) {
           cx="50%"
           cy="50%"
           labelLine={false}
-          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+          label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
           outerRadius={100}
           fill="#8884d8"
           dataKey="value"
@@ -36,7 +36,7 @@ export function SpendingChart({ data }: SpendingChartProps) {
           ))}
         </Pie>
         <Tooltip
-          formatter={(value: number) => `$${value.toFixed(2)}`}
+          formatter={(value: number | undefined) => `$${(value ?? 0).toFixed(2)}`}
           contentStyle={{
             backgroundColor: 'rgba(255, 255, 255, 0.95)',
             border: '1px solid #e2e8f0',

@@ -101,7 +101,9 @@ export async function executeTool(
       // Try cache first
       const cached = queryCache.get(userId, 'transactions', cacheParams);
       if (cached) {
-        console.log(`[Cache HIT] get_transactions - ${Date.now() - startTime}ms`);
+        const latency = Date.now() - startTime;
+        queryCache.recordLatency(true, latency);
+        console.log(`[Cache HIT] get_transactions - ${latency}ms`);
         return cached;
       }
 
@@ -125,7 +127,9 @@ export async function executeTool(
 
       // Store in cache
       queryCache.set(userId, 'transactions', result, cacheParams);
-      console.log(`[Cache MISS] get_transactions - ${Date.now() - startTime}ms`);
+      const latency = Date.now() - startTime;
+      queryCache.recordLatency(false, latency);
+      console.log(`[Cache MISS] get_transactions - ${latency}ms`);
 
       return result;
     }
@@ -137,7 +141,9 @@ export async function executeTool(
       // Try cache first
       const cached = queryCache.get(userId, 'spending_patterns', cacheParams);
       if (cached) {
-        console.log(`[Cache HIT] analyze_spending_patterns - ${Date.now() - startTime}ms`);
+        const latency = Date.now() - startTime;
+        queryCache.recordLatency(true, latency);
+        console.log(`[Cache HIT] analyze_spending_patterns - ${latency}ms`);
         return cached;
       }
 
@@ -175,7 +181,9 @@ export async function executeTool(
 
       // Store in cache
       queryCache.set(userId, 'spending_patterns', result, cacheParams);
-      console.log(`[Cache MISS] analyze_spending_patterns - ${Date.now() - startTime}ms`);
+      const latency = Date.now() - startTime;
+      queryCache.recordLatency(false, latency);
+      console.log(`[Cache MISS] analyze_spending_patterns - ${latency}ms`);
 
       return result;
     }
@@ -188,7 +196,9 @@ export async function executeTool(
       // Try cache first
       const cached = queryCache.get(userId, 'budgets');
       if (cached) {
-        console.log(`[Cache HIT] get_budgets - ${Date.now() - startTime}ms`);
+        const latency = Date.now() - startTime;
+        queryCache.recordLatency(true, latency);
+        console.log(`[Cache HIT] get_budgets - ${latency}ms`);
         return cached;
       }
 
@@ -225,7 +235,9 @@ export async function executeTool(
 
       // Store in cache
       queryCache.set(userId, 'budgets', result);
-      console.log(`[Cache MISS] get_budgets - ${Date.now() - startTime}ms`);
+      const latency = Date.now() - startTime;
+      queryCache.recordLatency(false, latency);
+      console.log(`[Cache MISS] get_budgets - ${latency}ms`);
 
       return result;
     }
@@ -234,7 +246,9 @@ export async function executeTool(
       // Try cache first
       const cached = queryCache.get(userId, 'goals');
       if (cached) {
-        console.log(`[Cache HIT] get_goals - ${Date.now() - startTime}ms`);
+        const latency = Date.now() - startTime;
+        queryCache.recordLatency(true, latency);
+        console.log(`[Cache HIT] get_goals - ${latency}ms`);
         return cached;
       }
 
@@ -254,7 +268,9 @@ export async function executeTool(
 
       // Store in cache
       queryCache.set(userId, 'goals', result);
-      console.log(`[Cache MISS] get_goals - ${Date.now() - startTime}ms`);
+      const latency = Date.now() - startTime;
+      queryCache.recordLatency(false, latency);
+      console.log(`[Cache MISS] get_goals - ${latency}ms`);
 
       return result;
     }
@@ -266,7 +282,9 @@ export async function executeTool(
       // Try cache first
       const cached = queryCache.get(userId, 'summary', cacheParams);
       if (cached) {
-        console.log(`[Cache HIT] get_summary - ${Date.now() - startTime}ms`);
+        const latency = Date.now() - startTime;
+        queryCache.recordLatency(true, latency);
+        console.log(`[Cache HIT] get_summary - ${latency}ms`);
         return cached;
       }
 
@@ -297,7 +315,9 @@ export async function executeTool(
 
       // Store in cache
       queryCache.set(userId, 'summary', result, cacheParams);
-      console.log(`[Cache MISS] get_summary - ${Date.now() - startTime}ms`);
+      const latency = Date.now() - startTime;
+      queryCache.recordLatency(false, latency);
+      console.log(`[Cache MISS] get_summary - ${latency}ms`);
 
       return result;
     }
